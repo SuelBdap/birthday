@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Sinh Nhật</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* -------------------------- */
+        /* CƠ BẢN VÀ CHUNG */
+        /* -------------------------- */
+        body {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* -------------------------- */
+        /* PHẦN HỘP QUÀ (Giai đoạn 1) */
+        /* -------------------------- */
+        #present-box {
+            background: radial-gradient(circle, #ffdee9 0%, #b5f5ec 100%);
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1.5s ease-in-out;
+            color: #333;
+            position: absolute;
+            z-index: 10;
+        }
+
+        .gift-icon {
+            font-size: 180px;
+            animation: pulse-3d 2s infinite ease-in-out;
+            text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes pulse-3d {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.08) rotate(2deg); }
+        }
+
+        .open-button {
+            padding: 18px 50px;
+            font-size: 28px;
+            font-weight: bold;
+            background-color: #ff69b4; /* Hồng lãng mạn */
+            color: white;
+            border: 5px solid #fff;
+            border-radius: 60px;
+            cursor: pointer;
+            margin-top: 40px;
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.5);
+            transition: all 0.4s;
+            letter-spacing: 2px;
+        }
+
+        .open-button:hover {
+            background-color: #ffc0cb;
+            color: #333;
+            transform: scale(1.1);
+        }
+
+        /* -------------------------- */
+        /* PHẦN CHÚC MỪNG (Giai đoạn 2) */
+        /* -------------------------- */
+        #birthday-screen {
+            /* Nền lãng mạn */
+            background: linear-gradient(to top, #c471ed 0%, #f64f59 100%); 
+            width: 100%;
+            height: 100vh;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 3s ease-in-out; /* Chuyển cảnh siêu mượt */
+            position: relative;
+            z-index: 5;
+            color: white;
+        }
+
+        /* Tiêu đề lãng mạn */
+        .main-message {
+            font-family: 'Great Vibes', cursive;
+            font-size: 6em;
+            margin-bottom: 20px;
+            color: #fce4ec; /* Kem hồng */
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
+            opacity: 0; /* Ẩn ban đầu */
+            animation: pop-up 2s forwards 2s; /* Xuất hiện sau 2s */
+        }
+        
+        @keyframes pop-up {
+            0% { transform: scale(0.5) translateY(-50px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        /* --- GALLERY ẢNH XUẤT HIỆN LẦN LƯỢT --- */
+        .photo-gallery {
+            position: relative;
+            width: 80%;
+            max-width: 900px;
+            height: 300px;
+            margin-top: 30px;
+        }
+
+        .photo-item {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%) scale(0.8);
+            width: 350px; /* Kích thước khung ảnh */
+            height: 400px; /* Kích thước khung ảnh */
+            opacity: 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            border: 8px solid #fff;
+            transition: all 1s ease-in-out;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Đảm bảo ảnh vừa khung */
+            display: block; /* Loại bỏ khoảng trắng dưới ảnh */
+        }
+
+        /* --- BÁNH KEM & PHÁO --- */
+        .celebration-footer {
+            margin-top: 50px;
+            padding: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            opacity: 0;
+            animation: fade-in-up 1.5s forwards 10s; /* Xuất hiện sau 10s */
+        }
+        
+        @keyframes fade-in-up {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .cake-icon {
+            font-size: 80px;
+            margin-right: 20px;
+            animation: candle-flicker 1s infinite alternate;
+        }
+
+        @keyframes candle-flicker {
+            from { text-shadow: 0 0 10px gold, 0 0 20px orange; }
+            to { text-shadow: 0 0 8px yellow, 0 0 15px red; }
+        }
+
+        .final-wish {
+            text-align: left;
+            font-size: 1.2em;
+        }
+        
+        /* Hiệu ứng pháo hoa (Confetti) */
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: fire-confetti 4s linear infinite;
+        }
+        
+        @keyframes fire-confetti {
+            0% { top: 0; opacity: 1; transform: scale(1) rotate(0deg); }
+            100% { top: 100%; opacity: 0; transform: scale(0.5) rotate(720deg); }
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div id="present-box">
+        <div class="gift-icon">🎁</div>
+        <h1 style="font-size: 3em;"></h1>
+        <button class="open-button" onclick="openPresent()">Go</button>
+    </div>
+
+    <div id="birthday-screen">
+        <div class="main-message">Happy Birthday</div>
+        
+        <div class="photo-gallery" id="photo-gallery">
+            <div class="photo-item" data-src="IMG_1396.jpg"><img src="" alt=""></div>
+            <div class="photo-item" data-src="100.jpg"><img src="" alt=""></div>
+            <div class="photo-item" data-src="Trang.jpg"><img src="" alt=""></div>
+            <div class="photo-item" data-src="ttt_1418.jpg"><img src="" alt=""></div>
+            <div class="photo-item" data-src="IMG_1356.jpg"><img src="" alt=""></div>
+            </div>
+        
+
+    
+    <audio id="birthday-music" loop>
+        <source src = "Bài Hát Chúc Mừng Sinh Nhật Tiếng Việt 🎂 Nhạc Chúc Mừng Sinh Nhật [REMIX] 🎁 Happy Birthday Song - Happy Birthday (youtube)_[cut_42sec]_[cut_13sec].mp3" type = "audio/mpeg">
+        </audio>
+
+    <script>
+        const photos = document.querySelectorAll('.photo-item');
+        const totalPhotos = photos.length;
+        const photoDuration = 3000; // 5 giây/ảnh (có thể điều chỉnh)
+        const startPhotoDelay = 4000; // Bắt đầu chiếu ảnh sau 4 giây (có thể điều chỉnh)
+
+        // Hàm tạo Pháo chúc mừng (Confetti)
+        function createConfetti() {
+            const colors = ['#f4d03f', '#ffc0cb', '#a8e063', '#4bc0c8', '#ff69b4'];
+            for (let i = 0; i < 100; i++) {
+                const c = document.createElement('div');
+                c.classList.add('confetti');
+                c.style.left = Math.random() * 100 + 'vw';
+                c.style.animationDelay = Math.random() * 4 + 's';
+                c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                c.style.animationDuration = Math.random() * 3 + 3 + 's';
+                document.getElementById('birthday-screen').appendChild(c);
+            }
+        }
+        
+        // Hàm chiếu ảnh lần lượt
+        function startSlideshow() {
+            photos.forEach((photoDiv, index) => {
+                const img = photoDiv.querySelector('img');
+                const src = photoDiv.getAttribute('data-src');
+                img.src = src; // Nạp ảnh vào thẻ img
+                
+                // Hiệu ứng xuất hiện từng ảnh
+                setTimeout(() => {
+                    // Ẩn ảnh cũ (nếu có)
+                    if (index > 0) {
+                        photos[index - 1].style.opacity = '0';
+                        photos[index - 1].style.transform = 'translateX(-50%) scale(0.8)';
+                    }
+                    // Hiển thị ảnh mới
+                    photoDiv.style.opacity = '1';
+                    photoDiv.style.transform = 'translateX(-50%) scale(1)';
+                    
+                }, startPhotoDelay + index * photoDuration);
+            });
+            
+            // Ẩn ảnh cuối cùng sau khi hết lượt và reset về trạng thái ban đầu (tùy chọn)
+            // setTimeout(() => {
+            //     if (totalPhotos > 0) {
+            //         photos[totalPhotos - 1].style.opacity = '0';
+            //         photos[totalPhotos - 1].style.transform = 'translateX(-50%) scale(0.8)';
+            //     }
+            // }, startPhotoDelay + totalPhotos * photoDuration + 1000);
+        }
+
+        function openPresent() {
+            const presentBox = document.getElementById('present-box');
+            const birthdayScreen = document.getElementById('birthday-screen');
+            const music = document.getElementById('birthday-music');
+
+            // 1. Ẩn hộp quà
+            presentBox.style.opacity = '0';
+
+            setTimeout(() => {
+                presentBox.style.display = 'none';
+                
+                // 2. Hiện màn hình chúc mừng
+                birthdayScreen.style.display = 'flex'; 
+                
+                // 3. Hiệu ứng fade-in mượt
+                setTimeout(() => {
+                    birthdayScreen.style.opacity = '1'; 
+                    createConfetti(); // Kích hoạt pháo chúc mừng
+                    startSlideshow(); // Bắt đầu chiếu ảnh
+
+                    // 4. Phát nhạc
+                    if (music.currentSrc) { // Chỉ phát nếu có nguồn nhạc
+                        music.play().catch(e => {
+                            console.log("Không thể tự động phát nhạc. Trình duyệt yêu cầu tương tác người dùng.");
+                            // Bạn có thể thêm một biểu tượng loa nhỏ để người dùng bấm vào nếu nhạc không tự chạy
+                        });
+                    }
+                }, 50); 
+            }, 200); // 2s chờ hộp quà mờ đi
+        }
+    </script>
+</body>
+</html>
